@@ -1,0 +1,3 @@
+-r catalog/requirements.txt
+-r tasks/requirements.txt
+-r tests/requirements.txt
