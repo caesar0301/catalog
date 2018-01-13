@@ -28,7 +28,7 @@ def run(
         upgrade_db=True
 ):
     if flask_config is not None:
-        os.environ['FLASK_CONFIG'] = flask_config
+        os.environ['CATALOG_CONFIG'] = flask_config
 
     if install_dependencies:
         context.invoke_execute(context, 'app.deps.install')

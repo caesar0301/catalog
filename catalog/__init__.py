@@ -22,7 +22,8 @@ def create_app(flask_config_name=None, **kwargs):
     """
     app = Flask(__name__, **kwargs)
 
-    env_flask_config_name = os.getenv('FLASK_CONFIG')
+    env_flask_config_name = os.getenv('CATALOG_CONFIG')
+
     if not env_flask_config_name and flask_config_name is None:
         flask_config_name = 'development'
     elif flask_config_name is None:
@@ -30,7 +31,7 @@ def create_app(flask_config_name=None, **kwargs):
     else:
         if env_flask_config_name:
             assert env_flask_config_name == flask_config_name, (
-                    "FLASK_CONFIG environment variable (\"%s\") and flask_config_name argument "
+                    "CATALOG_CONFIG environment variable (\"%s\") and flask_config_name argument "
                     "(\"%s\") are both set and are not the same." % (
                         env_flask_config_name,
                         flask_config_name
@@ -40,7 +41,6 @@ def create_app(flask_config_name=None, **kwargs):
     from catalog.config import ProductionConfig
     from catalog.config import DevelopmentConfig
     from catalog.config import TestingConfig
-
     config_name_mapper = {
         'production': ProductionConfig,
         'development': DevelopmentConfig,
@@ -53,6 +53,7 @@ def create_app(flask_config_name=None, **kwargs):
         raise
 
     if app.debug:
+        logging.getLogger('flask_oauthlib').setLevel(logging.DEBUG)
         app.logger.setLevel(logging.DEBUG)
 
     from catalog import extensions
