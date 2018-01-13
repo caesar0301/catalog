@@ -117,9 +117,8 @@ class Namespace(BaseNamespace):
             else:
                 func = func_or_class
 
-            # Avoid circilar dependency
-            from prism.extensions import oauth2
-            from prism.modules.users import permissions
+            # Avoid circular dependency
+            from catalog.extensions import oauth2, permissions
 
             # Automatically apply `permissions.ActiveUserRolePermisson`
             # guard if none is yet applied.
@@ -133,8 +132,8 @@ class Namespace(BaseNamespace):
             # Ignore the current OAuth2 scopes if another @login_required
             # decorator was applied and just copy the already applied scopes.
             if hasattr(protected_func, '__apidoc__') \
-                and 'security' in protected_func.__apidoc__ \
-                and '__oauth__' in protected_func.__apidoc__['security']:
+                    and 'security' in protected_func.__apidoc__ \
+                    and '__oauth__' in protected_func.__apidoc__['security']:
                 _oauth_scopes = protected_func.__apidoc__['security']['__oauth__']['scopes']
             else:
                 _oauth_scopes = oauth_scopes
@@ -201,7 +200,7 @@ class Namespace(BaseNamespace):
             A helper wrapper.
             """
             # Avoid circular dependency
-            from prism.modules.users import permissions
+            from catalog.extensions import permissions
 
             if getattr(permission, '_partial', False):
                 # We don't apply partial permissions, we only use them for
@@ -229,13 +228,13 @@ class Namespace(BaseNamespace):
             # TODO: Change this behaviour when implement advanced OPTIONS
             # method support
             if (
-                    isinstance(permission, permissions.RolePermission)
-                or
-                    (
-                            isinstance(permission, type)
-                        and
-                            issubclass(permission, permissions.RolePermission)
-                    )
+                        isinstance(permission, permissions.RolePermission)
+                    or
+                        (
+                                    isinstance(permission, type)
+                                and
+                                    issubclass(permission, permissions.RolePermission)
+                        )
             ):
                 protected_func._role_permission_applied = True
 
@@ -271,9 +270,9 @@ class Namespace(BaseNamespace):
 
         Exampple:
         >>> with api.commit_or_abort(db.session):
-        ...     team = Team(**args)
-        ...     db.session.add(team)
-        ...     return team
+        ...     user = User(**args)
+        ...     db.session.add(user)
+        ...     return user
         """
         default_error_message = default_error_message.strip('.:')
         try:

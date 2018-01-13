@@ -2,8 +2,8 @@ import uuid
 
 from sqlalchemy import func
 
-from prism.exception import ObjectDoesNotExist
-from prism.extensions import db
+from catalog.exception import ObjectDoesNotExist
+from catalog.extensions import db
 
 
 class Source(db.Model):

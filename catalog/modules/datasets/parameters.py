@@ -1,9 +1,9 @@
 # encoding: utf-8
 from flask_marshmallow import base_fields
 
-from . import schemas
-from .models.dataset import Dataset
-from ...extensions.flask_restplus import PostFormParameters, PatchJSONParameters
+from catalog.extensions.flask_restplus import PostFormParameters, PatchJSONParameters
+from catalog.modules.datasets import schemas
+from catalog.modules.datasets.models.dataset import Dataset
 
 
 class AddDatasetParameters(PostFormParameters, schemas.DatasetSchema):

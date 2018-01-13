@@ -55,8 +55,12 @@ def create_app(flask_config_name=None, **kwargs):
     if app.debug:
         app.logger.setLevel(logging.DEBUG)
 
-    from . import extensions
-    extensions.init_app(app)
+    from catalog import extensions
+    from catalog.modules.auth import OAuth2RequestValidator
+    kwargs = {
+        'oauth_validator': OAuth2RequestValidator
+    }
+    extensions.init_app(app, **kwargs)
 
     from . import modules
     modules.init_app(app)

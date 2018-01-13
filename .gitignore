@@ -1,3 +1,11 @@
+*.swp
+*.bak
+static/
+example.db
+.idea/
+clients/*/swagger.json
+clients/*/dist
+
 .idea
 
 # Byte-compiled / optimized / DLL files

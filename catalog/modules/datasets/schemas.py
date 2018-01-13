@@ -6,8 +6,8 @@ Dataset schemas
 
 from flask_marshmallow import base_fields
 
-from .models import Dataset, Organization, Publisher, Reference, Source, License
-from ...extensions.flask_restplus import ModelSchema
+from catalog.extensions.flask_restplus import ModelSchema
+from catalog.modules.datasets.models import Dataset, Organization, Publisher, Reference, Source, License
 
 
 class DatasetSchema(ModelSchema):
@@ -79,7 +79,6 @@ class DatasetSchema(ModelSchema):
 
 
 class LicenseSchema(ModelSchema):
-
     class Meta:
         model = License
         fields = (
@@ -98,7 +97,6 @@ class LicenseSchema(ModelSchema):
 
 
 class OrganizationSchema(ModelSchema):
-
     class Meta:
         model = Organization
         fields = (
@@ -118,7 +116,6 @@ class OrganizationSchema(ModelSchema):
 
 
 class PublisherSchema(ModelSchema):
-
     class Meta:
         model = Publisher
         fields = (
@@ -140,7 +137,6 @@ class PublisherSchema(ModelSchema):
 
 
 class ReferenceSchema(ModelSchema):
-
     class Meta:
         model = Reference
         fields = (
@@ -160,7 +156,6 @@ class ReferenceSchema(ModelSchema):
 
 
 class SourceSchema(ModelSchema):
-
     class Meta:
         model = Source
         fields = (

@@ -2,9 +2,8 @@ import uuid
 
 from sqlalchemy import func
 
-from prism.exception import ObjectDoesNotExist
-from prism.extensions import db
-from prism.modules.datasets.models.organization import Organization
+from catalog.exception import ObjectDoesNotExist
+from catalog.extensions import db
 
 
 class Publisher(db.Model):

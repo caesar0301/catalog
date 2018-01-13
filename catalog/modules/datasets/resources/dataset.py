@@ -5,26 +5,27 @@ RESTful API Dataset resources
 """
 import logging
 from http import HTTPStatus
+
 from flask_login import current_user
 
-from prism.exception import PrismException
-from prism.extensions import db
-from prism.extensions.api import Namespace
-from prism.extensions.api.parameters import PaginationParameters
-from prism.extensions.flask_restplus import Resource
-from prism.modules.comments.models import Comment, CommentType
-from prism.modules.comments.parameters import AddCommentParameters
-from prism.modules.comments.schemas import CommentSchema
-from prism.modules.datasets.models import Dataset, License, Organization, Publisher, Reference, Source
-from prism.modules.datasets.parameters import AddDatasetParameters, PatchDatasetParameters
-from prism.modules.datasets.parameters import AddReferenceParameters, AddSourceParameters
-from prism.modules.datasets.schemas import DatasetSchema, ReferenceSchema, SourceSchema
-from prism.modules.stories.models import Story, StoryDatasetAssociation
-from prism.modules.stories.parameters import AddStoryParameters
-from prism.modules.stories.schemas import StorySchema
-from prism.modules.users.models import UserStarDataset
-from prism.modules.users import permissions
-from prism.exception import ObjectDoesNotExist
+from catalog.exception import CatalogException
+from catalog.exception import ObjectDoesNotExist
+from catalog.extensions import db
+from catalog.extensions import permissions
+from catalog.extensions.api import Namespace
+from catalog.extensions.api.parameters import PaginationParameters
+from catalog.extensions.flask_restplus import Resource
+from catalog.modules.comments.models import Comment, CommentType
+from catalog.modules.comments.parameters import AddCommentParameters
+from catalog.modules.comments.schemas import CommentSchema
+from catalog.modules.datasets.models import Dataset, License, Organization, Publisher, Reference, Source
+from catalog.modules.datasets.parameters import AddDatasetParameters, PatchDatasetParameters
+from catalog.modules.datasets.parameters import AddReferenceParameters, AddSourceParameters
+from catalog.modules.datasets.schemas import DatasetSchema, ReferenceSchema, SourceSchema
+from catalog.modules.stories.models import Story, StoryDatasetAssociation
+from catalog.modules.stories.parameters import AddStoryParameters
+from catalog.modules.stories.schemas import StorySchema
+from catalog.modules.users.models import UserStarDataset
 
 log = logging.getLogger(__name__)
 api = Namespace('datasets', description="On datasets")
@@ -47,8 +48,8 @@ class DatasetResource(Resource):
         :return: a list of datasets starting from ``offset`` limited by
         ``limit`` parameter.
         """
-        return Dataset.query.filter_by(deleted=False)\
-            .offset(args['offset'])\
+        return Dataset.query.filter_by(deleted=False) \
+            .offset(args['offset']) \
             .limit(args['limit'])
 
     @api.login_required(oauth_scopes=['datasets:write'])
@@ -59,8 +60,8 @@ class DatasetResource(Resource):
         """Create a new dataset
         """
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to create a new dataset."
+                db.session,
+                default_error_message="Failed to create a new dataset."
         ):
             contributor = current_user
             args['contributor_id'] = contributor.id
@@ -121,8 +122,8 @@ class SingleDatasetResource(Resource):
         """ Update a dataset
         """
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to patch a dataset."
+                db.session,
+                default_error_message="Failed to patch a dataset."
         ):
             PatchDatasetParameters.perform_patch(args, dataset)
             db.session.merge(dataset)
@@ -138,8 +139,8 @@ class SingleDatasetResource(Resource):
     def delete(self, dataset):
         """ Delete a specific dataset (TODO)"""
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to delete a dataset."
+                db.session,
+                default_error_message="Failed to delete a dataset."
         ):
             Dataset.delete(dataset=dataset)
 
@@ -163,8 +164,8 @@ class DatasetReferences(Resource):
         """Create a new reference for a dataset
         """
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to create a new reference."
+                db.session,
+                default_error_message="Failed to create a new reference."
         ):
             args['dataset_id'] = dataset_id
             new_ref = Reference.create(**args)
@@ -191,8 +192,8 @@ class DatasetSources(Resource):
         """Create a new source for a dataset
         """
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to create a new data source."
+                db.session,
+                default_error_message="Failed to create a new data source."
         ):
             args['dataset_id'] = dataset_id
             new_ref = Source.create(**args)
@@ -318,8 +319,8 @@ class DatasetStories(Resource):
     def post(self, args, dataset_id):
         """ Create a new story for a dataset"""
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to create a new data story."
+                db.session,
+                default_error_message="Failed to create a new data story."
         ):
             contributor = current_user
             args['contributor_id'] = contributor.id
@@ -353,8 +354,8 @@ class DatasetStoryLinkAction(Resource):
         """Create a new link between a story and a dataset
         """
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to link a story and dataset."
+                db.session,
+                default_error_message="Failed to link a story and dataset."
         ):
             user = current_user
 
@@ -378,8 +379,8 @@ class DatasetStoryLinkAction(Resource):
         """Remove the link between a dataset and a story
         """
         with api.commit_or_abort(
-            db.session,
-            default_error_message="Failed to unlink a story and dataset."
+                db.session,
+                default_error_message="Failed to unlink a story and dataset."
         ):
             user = current_user
 
@@ -396,6 +397,6 @@ class DatasetStoryLinkAction(Resource):
             if sd is not None:
                 db.session.delete(sd)
             else:
-                raise PrismException('Unlinked already')
+                raise CatalogException('Unlinked already')
 
             return dataset

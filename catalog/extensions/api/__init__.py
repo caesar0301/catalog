@@ -12,10 +12,9 @@ from .namespace import Namespace
 
 api_v1 = Api(
     version='1.0',
-    title="Prism API",
+    title="Catalog API",
     description=(
-        "It is a [registry service](http://github.com/caesar0301/prism) endeavoring to "
-        "index world-wide data sources.\n"
+        "This is a catlog service of world-wide data sources.\n"
     ),
 )
 

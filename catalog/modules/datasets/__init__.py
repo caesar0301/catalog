@@ -4,7 +4,7 @@ Dataset module
 ============
 """
 
-from ...extensions.api import api_v1
+from catalog.extensions.api import api_v1
 
 
 def init_app(app, **kwargs):

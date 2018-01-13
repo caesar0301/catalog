@@ -1,13 +1,13 @@
 import logging
 
-from prism.extensions import db
-from prism.extensions.api import Namespace
-from prism.extensions.api.parameters import PaginationParameters
-from prism.extensions.flask_restplus import Resource
-from prism.modules.datasets.models import License
-from prism.modules.datasets.parameters import AddLicenseParameters, UpdateLicenseParameters
-from prism.modules.datasets.schemas import LicenseSchema
-from prism.modules.users import permissions
+from catalog.extensions import db
+from catalog.extensions.api import Namespace
+from catalog.extensions.api.parameters import PaginationParameters
+from catalog.extensions.flask_restplus import Resource
+from catalog.modules.datasets.models import License
+from catalog.modules.datasets.parameters import AddLicenseParameters, UpdateLicenseParameters
+from catalog.modules.datasets.schemas import LicenseSchema
+from catalog.extensions import permissions
 
 log = logging.getLogger(__name__)
 api = Namespace('licenses', description="On licenses")

@@ -3,7 +3,6 @@
 HTTP exceptions collection
 --------------------------
 """
-
 from http import HTTPStatus
 
 from flask_restplus.errors import abort as restplus_abort
