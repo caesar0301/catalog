@@ -29,13 +29,13 @@ def enter(context, install_dependencies=True, upgrade_db=True):
     from werkzeug import script
     import flask
 
-    import prism
-    flask_app = prism.create_app()
+    import catalog
+    flask_app = catalog.create_app()
 
     def shell_context():
         context = dict(pprint=pprint.pprint)
         context.update(vars(flask))
-        context.update(vars(prism))
+        context.update(vars(catalog))
         return context
 
     with flask_app.app_context():

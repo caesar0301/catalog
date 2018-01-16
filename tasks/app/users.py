@@ -19,7 +19,7 @@ def create(
     """
     Create a new user.
     """
-    from prism.modules.users.models import User
+    from catalog.modules.users.models import User
 
     password = input("Enter password: ")
 
@@ -33,7 +33,7 @@ def create(
         is_active=is_active
     )
 
-    from prism.extensions import db
+    from catalog.extensions import db
     db.session.add(new_user)
     db.session.commit()
 
@@ -49,15 +49,15 @@ def create_oauth2_client(
     """
     Create a new OAuth2 Client associated with a given user (username).
     """
-    from prism.modules.users.models import User
-    from prism.modules.auth.models import OAuth2Client
+    from catalog.modules.users.models import User
+    from catalog.modules.auth.models import OAuth2Client
 
     user = User.query.first(User.username == username)
     if not user:
         raise Exception("User with username '%s' does not exist." % username)
 
     if default_scopes is None:
-        from prism.extensions.api import api_v1
+        from catalog.extensions.api import api_v1
         default_scopes = ' '.join(api_v1.authorizations['oauth2_password']['scopes'])
 
     oauth2_client = OAuth2Client(
@@ -67,6 +67,6 @@ def create_oauth2_client(
         _default_scopes=default_scopes
     )
 
-    from prism.extensions import db
+    from catalog.extensions import db
     db.session.add(oauth2_client)
     db.session.commit()

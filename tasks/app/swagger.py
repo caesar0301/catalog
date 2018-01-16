@@ -21,7 +21,7 @@ def export(context, output_format='json', quiet=False):
     # set logging level to ERROR to avoid [INFO] messages in result
     logging.getLogger().setLevel(logging.ERROR)
 
-    from prism import create_app
+    from catalog import create_app
     app = create_app()
     swagger_content = app.test_client().get('/api/v1/swagger.%s' % output_format).data
     if not quiet:
