@@ -32,11 +32,6 @@ class BaseConfig(object):
         }
     }
 
-    SWAGGER_UI_JSONEDITOR = True
-    SWAGGER_UI_OAUTH_CLIENT_ID = 'documentation'
-    SWAGGER_UI_OAUTH_REALM = "Authentication for Catalog server documentation"
-    SWAGGER_UI_OAUTH_APP_NAME = "Catalog server documentation"
-
     # TODO: consider if these are relevant for this project
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     CSRF_ENABLED = True
