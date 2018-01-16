@@ -13,7 +13,8 @@ from flask_oauthlib import provider
 from catalog.extensions import db
 from catalog.extensions import login_manager, oauth2
 from catalog.extensions.api import api_v1
-from .models import OAuth2Client, OAuth2Grant, OAuth2Token
+from catalog.modules.auth.models import OAuth2Client, OAuth2Grant, OAuth2Token
+from catalog.modules.users.models import User
 
 log = logging.getLogger(__name__)
 
@@ -38,8 +39,6 @@ class OAuth2RequestValidator(provider.OAuth2RequestValidator):
         )
 
     def _usergetter(self, username, password, client, request):
-        from ..users.models import User
-        # Avoid circular dependencies
         return User.find_with_password(username, password)
 
     def _tokensetter(self, token, request, *args, **kwargs):

@@ -13,13 +13,14 @@ class BaseConfig(object):
     DEBUG = False
 
     ENABLED_MODULES = (
-        'api',
+        'auth',
         'users',
         'comments',
         'datasets',
         'events',
         'stories',
-        'auth'
+        # Keep api module as last one for module injection
+        'api'
     )
 
     AUTHORIZATIONS = {

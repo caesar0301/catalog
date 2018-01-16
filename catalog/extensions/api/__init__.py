@@ -14,7 +14,7 @@ api_v1 = Api(
     version='1.0',
     title="Catalog API",
     description=(
-        "This is a catlog service of world-wide data sources.\n"
+        "This is a catalog service of world-wide data sources.\n"
     ),
 )
 
