@@ -1,3 +1,6 @@
+"""
+Customized modules of flask_restplus.
+"""
 from .schema import ModelSchema, Schema, DefaultHTTPErrorSchema
 from .api import Api
 from .namespace import Namespace
