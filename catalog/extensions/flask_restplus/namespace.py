@@ -39,7 +39,6 @@ class Namespace(OriginalNamespace):
         def decorator(func_or_class):
             if isinstance(func_or_class, type):
                 # Handle Resource classes decoration
-                # pylint: disable=protected-access
                 func_or_class._apply_decorator_to_methods(decorator)
                 return func_or_class
 
@@ -157,7 +156,6 @@ class Namespace(OriginalNamespace):
                 decorated_func_or_class = func_or_class
             elif isinstance(func_or_class, type):
                 # Handle Resource classes decoration
-                # pylint: disable=protected-access
                 func_or_class._apply_decorator_to_methods(response_serializer_decorator)
                 decorated_func_or_class = func_or_class
             else:

@@ -9,9 +9,8 @@ class SchemaMixin(object):
 
 
 # Define ModelSchema when using sqlalchemy as orm
-if flask_marshmallow.has_sqla:
-    class ModelSchema(SchemaMixin, flask_marshmallow.sqla.ModelSchema):
-        pass
+class ModelSchema(SchemaMixin, flask_marshmallow.sqla.ModelSchema):
+    pass
 
 
 class Schema(SchemaMixin, flask_marshmallow.Schema):
