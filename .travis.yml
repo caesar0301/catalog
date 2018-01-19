@@ -8,14 +8,6 @@ branches:
   only:
     - master
 
-jobs:
-  include:
-    - stage: test
-      script: "pytest tests"
-    - stage: deploy
-      script: "echo hello!"
-
-stages:
-  - test
-  - name: deploy
-    if: (branch = master) AND (type IN (push))
+script:
+  - pip install -r requirements.txt
+  - pytest tests
