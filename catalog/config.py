@@ -36,6 +36,12 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     CSRF_ENABLED = True
 
+    # See flask_restplus@github issue #142
+    SWAGGER_UI_JSONEDITOR = True
+    SWAGGER_UI_OAUTH_CLIENT_ID = 'documentation'
+    SWAGGER_UI_OAUTH_REALM = "Authentication for server documentation"
+    SWAGGER_UI_OAUTH_APP_NAME = "Documentation"
+
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
