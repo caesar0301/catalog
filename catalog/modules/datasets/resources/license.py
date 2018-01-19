@@ -1,7 +1,7 @@
 import logging
 
 from catalog.extensions import db
-from catalog.extensions.api import Namespace
+from catalog.extensions.flask_restplus import Namespace
 from catalog.extensions.flask_restplus.parameters import PaginationParameters
 from catalog.extensions.flask_restplus import Resource
 from catalog.modules.datasets.models import License

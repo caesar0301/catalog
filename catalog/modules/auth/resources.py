@@ -10,7 +10,7 @@ from http import HTTPStatus
 from flask_login import current_user
 from werkzeug import security
 
-from catalog.extensions.api import Namespace
+from catalog.extensions.flask_restplus import Namespace
 from catalog.extensions.flask_restplus import Resource
 from catalog.modules.auth import schemas, parameters
 from catalog.modules.auth.models import db, OAuth2Client

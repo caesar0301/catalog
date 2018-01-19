@@ -10,7 +10,7 @@ from http import HTTPStatus
 from flask_login import current_user
 
 from catalog.extensions import permissions
-from catalog.extensions.api import Namespace
+from catalog.extensions.flask_restplus import Namespace
 from catalog.extensions.flask_restplus import Resource
 from catalog.extensions.flask_restplus.parameters import PaginationParameters
 from catalog.modules.comments.schemas import CommentSchema

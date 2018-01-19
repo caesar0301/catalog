@@ -2,7 +2,7 @@ import logging
 
 from catalog.extensions import db
 from catalog.extensions import permissions
-from catalog.extensions.api import Namespace
+from catalog.extensions.flask_restplus import Namespace
 from catalog.extensions.flask_restplus import Resource
 from catalog.modules.comments.models import Comment
 from catalog.modules.comments.parameters import UpdateCommentParameters
