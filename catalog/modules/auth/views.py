@@ -15,7 +15,8 @@ from http import HTTPStatus
 from flask import Blueprint, request, render_template
 from flask_login import current_user
 
-from catalog.extensions import api, oauth2
+from catalog.extensions import oauth2
+from catalog.extensions.flask_restplus.errors import abort
 from catalog.modules.auth.models import OAuth2Client
 
 auth_blueprint = Blueprint('auth', __name__, url_prefix='/auth')
@@ -57,7 +58,7 @@ def authorize(*args, **kwargs):
     # ALTERNATIVELY, authorize page can be implemented as SPA (single page
     # application)
     if not current_user.is_authenticated:
-        return api.abort(code=HTTPStatus.UNAUTHORIZED)
+        return abort(code=HTTPStatus.UNAUTHORIZED)
 
     if request.method == 'GET':
         client_id = kwargs.get('client_id')

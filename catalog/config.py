@@ -17,7 +17,6 @@ class BaseConfig(object):
         'users',
         'comments',
         'datasets',
-        'events',
         'stories',
         # Keep api module as last one for module injection
         'api'

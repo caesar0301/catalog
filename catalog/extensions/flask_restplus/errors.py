@@ -1,11 +1,6 @@
-# encoding: utf-8
-"""
-HTTP exceptions collection
---------------------------
-"""
 from http import HTTPStatus
 
-from flask_restplus.errors import abort as restplus_abort
+from flask_restplus import abort as restplus_abort
 
 API_DEFAULT_HTTP_CODE_MESSAGES = {
     HTTPStatus.UNAUTHORIZED.value: (

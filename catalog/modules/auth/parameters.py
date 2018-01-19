@@ -8,7 +8,7 @@ from flask_marshmallow import base_fields
 from marshmallow import validates, ValidationError
 
 from catalog.extensions import api
-from catalog.extensions.api.parameters import PaginationParameters
+from catalog.extensions.flask_restplus.parameters import PaginationParameters
 from catalog.extensions.flask_restplus import PostFormParameters
 
 

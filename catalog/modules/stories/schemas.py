@@ -9,8 +9,8 @@ from http import HTTPStatus
 
 from flask_marshmallow import base_fields
 
-from catalog.extensions.api import http_exceptions
 from catalog.extensions.flask_restplus import ModelSchema
+from catalog.extensions.flask_restplus.errors import abort
 from catalog.modules.stories.models import Story, StoryAcademic, StoryNews, StoryType
 
 logger = logging.getLogger(__name__)
@@ -94,7 +94,7 @@ class StorySchema(ModelSchema):
             if schema is not None:
                 obj = schema.load(value)
                 if obj.errors:
-                    http_exceptions.abort(code=HTTPStatus.BAD_REQUEST, message=str(obj.errors))
+                    abort(code=HTTPStatus.BAD_REQUEST, message=str(obj.errors))
                 return obj.data
             return None
 
@@ -116,7 +116,7 @@ class StorySchema(ModelSchema):
             if schema is not None:
                 res = schema.dump(details)
                 if res.errors:
-                    http_exceptions.abort(code=HTTPStatus.BAD_REQUEST, message=str(res.errors))
+                    abort(code=HTTPStatus.BAD_REQUEST, message=str(res.errors))
                 return res.data
         return res
 

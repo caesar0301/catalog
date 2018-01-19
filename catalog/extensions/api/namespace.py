@@ -10,12 +10,30 @@ from http import HTTPStatus
 
 import flask_marshmallow
 import sqlalchemy
+from webargs.flaskparser import FlaskParser
 
-from . import http_exceptions
-from .webargs_parser import CustomWebargsParser
+from catalog.extensions.flask_restplus.errors import abort
 from ..flask_restplus import Namespace as BaseNamespace
 
 logger = logging.getLogger(__name__)
+
+
+class CustomWebargsParser(FlaskParser):
+    """
+    This custom Webargs Parser aims to overload :meth:``handle_error`` in order
+    to call our custom :func:``abort`` function.
+
+    See the following issue and the reated PR for more details:
+    https://github.com/sloria/webargs/issues/122
+    """
+
+    def handle_error(self, error):
+        """
+        Handles errors during parsing. Aborts the current HTTP request and
+        responds with a 422 error.
+        """
+        status_code = getattr(error, 'status_code', self.DEFAULT_VALIDATION_STATUS)
+        abort(status_code, messages=error.messages)
 
 
 class Namespace(BaseNamespace):
@@ -280,10 +298,10 @@ class Namespace(BaseNamespace):
                 yield
         except ValueError as exception:
             logger.error("Value error to commit data: {}".format(str(exception)))
-            http_exceptions.abort(code=HTTPStatus.CONFLICT, message=str(exception))
+            abort(code=HTTPStatus.CONFLICT, message=str(exception))
         except sqlalchemy.exc.IntegrityError as e:
             logger.error("Database integrity error: {}".format(str(e)))
-            http_exceptions.abort(
+            abort(
                 code=HTTPStatus.CONFLICT,
                 message="{}: {}".format(default_error_message, str(e))
             )
@@ -293,7 +311,7 @@ class Namespace(BaseNamespace):
                 code = e.code
             else:
                 code = HTTPStatus.BAD_REQUEST
-            http_exceptions.abort(
+            abort(
                 code=code,
                 message="{}: {}".format(default_error_message, str(e))
             )

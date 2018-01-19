@@ -6,8 +6,7 @@ API extension
 
 from copy import deepcopy
 
-from .api import Api
-from .http_exceptions import abort
+from catalog.extensions.flask_restplus import Api
 from .namespace import Namespace
 
 api_v1 = Api(

@@ -13,7 +13,7 @@ from http import HTTPStatus
 
 from flask_oauthlib import provider
 
-from .. import api
+from catalog.extensions.flask_restplus.errors import abort
 
 __all__ = ['OAuth2Provider']
 
@@ -23,7 +23,7 @@ def api_invalid_response(req):
     This is a default handler for OAuth2Provider, which raises abort exception
     with error message in JSON format.
     """
-    api.abort(code=HTTPStatus.UNAUTHORIZED.value)
+    abort(code=HTTPStatus.UNAUTHORIZED.value)
 
 
 class OAuth2Provider(provider.OAuth2Provider):

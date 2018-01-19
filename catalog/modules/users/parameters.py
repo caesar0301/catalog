@@ -11,8 +11,8 @@ from flask_marshmallow import base_fields
 from marshmallow import validates_schema, ValidationError
 
 from catalog.extensions import permissions
-from catalog.extensions.api import abort
 from catalog.extensions.flask_restplus import PostFormParameters, PatchJSONParameters
+from catalog.extensions.flask_restplus.errors import abort
 from catalog.modules.users import schemas
 from catalog.modules.users.models import User
 
