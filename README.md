@@ -1,5 +1,7 @@
 # Catalog API
 
+[![Build Status](https://travis-ci.org/awesomedata/catalog.svg?branch=master)](https://travis-ci.org/awesomedata/catalog)
+
 A data catalog service for awesome data.
 
 # Screenshots
