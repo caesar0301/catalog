@@ -7,7 +7,6 @@ API extension
 from copy import deepcopy
 
 from catalog.extensions.flask_restplus import Api
-from .namespace import Namespace
 
 api_v1 = Api(
     version='1.0',
