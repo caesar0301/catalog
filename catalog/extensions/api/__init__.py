@@ -3,7 +3,6 @@
 API extension
 =============
 """
-
 from copy import deepcopy
 
 from catalog.extensions.flask_restplus import Api
@@ -15,6 +14,8 @@ api_v1 = Api(
         "This is a catalog service of world-wide data sources.\n"
     ),
 )
+
+current_api = api_v1
 
 
 def serve_swaggerui_assets(path):
@@ -38,4 +39,4 @@ def init_app(app, **kwargs):
     app.route('/swaggerui/<path:path>')(serve_swaggerui_assets)
 
     # Prevent config variable modification with runtime changes
-    api_v1.authorizations = deepcopy(app.config['AUTHORIZATIONS'])
+    current_api.authorizations = deepcopy(app.config['AUTHORIZATIONS'])

@@ -1,5 +1,5 @@
 # encoding: utf-8
-from catalog.extensions.api import api_v1
+from catalog.extensions.api import current_api
 
 
 def init_app(app, **kwargs):
@@ -9,7 +9,7 @@ def init_app(app, **kwargs):
     # Touch underlying modules
     from . import models, resources
 
-    api_v1.add_oauth_scope('stories:read', "Provide access to data story details")
-    api_v1.add_oauth_scope('stories:write', "Provide write access to data story details")
+    current_api.add_oauth_scope('stories:read', "Provide access to data story details")
+    current_api.add_oauth_scope('stories:write', "Provide write access to data story details")
 
-    api_v1.add_namespace(resources.api)
+    current_api.add_namespace(resources.api)
