@@ -54,7 +54,11 @@ class Users(Resource):
                 db.session,
                 default_error_message="Failed to create a new user."
         ):
-            new_user = User(**args)
+            new_user = User(
+                is_active=True,
+                is_regular_user=True,
+                **args
+            )
             db.session.add(new_user)
         return new_user
 
@@ -70,7 +74,7 @@ class UserSignupForm(Resource):
         must be used to receive a reCAPTCHA secret key for POST /users/ form.
         """
         # TODO:
-        return {"recaptcha_server_key": "TODO"}
+        return {"recaptcha_server_key": "secret_key"}
 
 
 @api.route('/<int:id>')

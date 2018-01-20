@@ -19,39 +19,45 @@ def init_users():
         root_user = User(
             username='root',
             email='root@localhost',
-            password='changeit',
+            password='q',
             is_active=True,
             is_regular_user=True,
             is_admin=True
         )
         db.session.add(root_user)
         docs_user = User(
-            username='documentation',
-            email='documentation@localhost',
-            password='changeit',
+            username='catalog',
+            email='catalog@localhost',
+            password='w',
             is_active=False
         )
         db.session.add(docs_user)
         regular_user = User(
-            username='catalog',
-            email='catalog@localhost',
-            password='changeit',
+            username='user',
+            email='user@localhost',
+            password='w',
             is_active=True,
             is_regular_user=True
         )
         db.session.add(regular_user)
+        internal_user = User(
+            username='internal',
+            email='internal@localhost',
+            password='q',
+            is_active=True,
+            is_internal=True
+        )
+        db.session.add(internal_user)
     return root_user, docs_user, regular_user
 
 
 def init_auth(user):
-    from tasks.settings import Settings
-
     # TODO: OpenAPI documentation has to have OAuth2 Implicit Flow instead
     # of Resource Owner Password Credentials Flow
     with db.session.begin():
         oauth2_client = OAuth2Client(
-            client_id=Settings.ROOT_CLINET_ID,
-            client_secret=Settings.ROOT_CLIENT_SECRET,
+            client_id=user.username,
+            client_secret='KQ()SWK)SQK)QWSKQW(SKQ)S(QWSQW(SJ*HQ&HQW*SQ*^SSQWSGQSG',
             user_id=user.id,
             redirect_uris=[],
             default_scopes=api.api_v1.authorizations['oauth2_password']['scopes']
@@ -72,13 +78,14 @@ def init():
     # Automatically update `default_scopes` for `documentation` OAuth2 Client,
     # as it is nice to have an ability to evaluate all available API calls.
     with db.session.begin():
-        OAuth2Client.query.filter(OAuth2Client.client_id == 'user').update({
+        OAuth2Client.query.filter(OAuth2Client.client_id == 'documentation').update({
             OAuth2Client.default_scopes: api.api_v1.authorizations['oauth2_password']['scopes'],
         })
 
     assert User.query.count() == 0, \
         "Database is not empty. You should not re-apply fixtures! Aborted."
 
-    root_user, docs_user, regular_user = init_users()
-    init_auth(root_user)
+    root_user, docs_user, regular_user = init_users()  # pylint: disable=unused-variable
+    init_auth(docs_user)
+    init_auth(regular_user)
     init_datasets(root_user)

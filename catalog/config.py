@@ -29,6 +29,13 @@ class BaseConfig(object):
             'scopes': {},
             'tokenUrl': '/auth/oauth2/token',
         }
+        # TODO: implement other grant types for third-party apps
+        # 'oauth2_implicit': {
+        #    'type': 'oauth2',
+        #    'flow': 'implicit',
+        #    'scopes': {},
+        #    'authorizationUrl': '/auth/oauth2/authorize',
+        # },
     }
 
     # TODO: consider if these are relevant for this project
