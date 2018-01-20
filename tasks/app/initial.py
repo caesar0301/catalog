@@ -19,7 +19,7 @@ def init_users():
         root_user = User(
             username='root',
             email='root@localhost',
-            password='123',
+            password='changeit',
             is_active=True,
             is_regular_user=True,
             is_admin=True
@@ -28,14 +28,14 @@ def init_users():
         docs_user = User(
             username='documentation',
             email='documentation@localhost',
-            password='123',
+            password='changeit',
             is_active=False
         )
         db.session.add(docs_user)
         regular_user = User(
-            username='user',
-            email='user@localhost',
-            password='123',
+            username='catalog',
+            email='catalog@localhost',
+            password='changeit',
             is_active=True,
             is_regular_user=True
         )
@@ -44,12 +44,14 @@ def init_users():
 
 
 def init_auth(user):
+    from tasks.settings import Settings
+
     # TODO: OpenAPI documentation has to have OAuth2 Implicit Flow instead
     # of Resource Owner Password Credentials Flow
     with db.session.begin():
         oauth2_client = OAuth2Client(
-            client_id=user.username,
-            client_secret='123',
+            client_id=Settings.ROOT_CLINET_ID,
+            client_secret=Settings.ROOT_CLIENT_SECRET,
             user_id=user.id,
             redirect_uris=[],
             default_scopes=api.api_v1.authorizations['oauth2_password']['scopes']

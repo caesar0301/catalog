@@ -45,8 +45,6 @@ class OAuth2Clients(Resource):
     @api.login_required(oauth_scopes=['auth:write'])
     @api.parameters(parameters.CreateOAuth2ClientParameters())
     @api.response(schemas.DetailedOAuth2ClientSchema())
-    @api.response(code=HTTPStatus.FORBIDDEN)
-    @api.response(code=HTTPStatus.CONFLICT)
     @api.doc(id='create_oauth_client')
     def post(self, args):
         """

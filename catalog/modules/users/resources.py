@@ -45,8 +45,6 @@ class Users(Resource):
 
     @api.parameters(parameters.AddUserParameters())
     @api.response(schemas.UserSchema())
-    @api.response(code=HTTPStatus.FORBIDDEN)
-    @api.response(code=HTTPStatus.CONFLICT)
     @api.doc(id='create_user')
     def post(self, args):
         """
@@ -106,7 +104,6 @@ class UserByID(Resource):
     @api.permission_required(permissions.WriteAccessPermission())
     @api.parameters(parameters.PatchUserDetailsParameters())
     @api.response(schemas.UserSchema())
-    @api.response(code=HTTPStatus.CONFLICT)
     def patch(self, args, user):
         """
         Patch user details by ID.
