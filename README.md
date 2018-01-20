@@ -33,6 +33,8 @@ export SQLALCHEMY_DATABASE_URI="mysql://root:password@localhost:3306/catalogdb?c
 invoke app.run
 ```
 
+Swagger UI: `localhost:4444/api/v1`
+
 # Reference:
 
 * http://frictionlessdata.io
