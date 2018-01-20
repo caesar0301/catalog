@@ -21,7 +21,7 @@ except ImportError:  # Invoke 0.13 renamed ctask to task
 @task(default=True)
 def run(
         context,
-        host='127.0.0.1',
+        host='0.0.0.0',
         port=4444,
         flask_config=None,
         install_dependencies=True,
