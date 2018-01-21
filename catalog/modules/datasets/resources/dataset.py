@@ -72,7 +72,7 @@ class DatasetResource(Resource):
                     license = License.get(license_name=license_name)
                 except ObjectDoesNotExist:
                     log.warning('License "{}" not found, and created automatically.'.format(license_name))
-                    license = License.create(title=license_name)
+                    license = License.create(name=license_name)
                 args['license_id'] = license.id
 
             if 'organization_name' in args:

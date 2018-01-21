@@ -26,5 +26,7 @@ datasets:
     access_level: public
     data_quality: false
     category: test
-    keywords: GDP, Gross Domestic Product
+    keywords:
+      - GDP
+      - Gross-Domestic-Product
     version: '2011'

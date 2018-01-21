@@ -4,14 +4,14 @@ This file contains initialization data for development usage only.
 
 You can execute this code via ``invoke app.db.init_dev_data``
 """
-import yaml
-
 import os
+import yaml
 
 from catalog.extensions import db, api
 from catalog.modules.auth.models import OAuth2Client
 from catalog.modules.datasets.models import Dataset
 from catalog.modules.users.models import User
+from tasks.settings import Settings
 
 
 def init_users():
@@ -29,7 +29,7 @@ def init_users():
             username='catalog',
             email='catalog@localhost',
             password='w',
-            is_active=False
+            is_active=True
         )
         db.session.add(docs_user)
         regular_user = User(
@@ -56,8 +56,8 @@ def init_auth(user):
     # of Resource Owner Password Credentials Flow
     with db.session.begin():
         oauth2_client = OAuth2Client(
-            client_id=user.username,
-            client_secret='KQ()SWK)SQK)QWSKQW(SKQ)S(QWSQW(SJ*HQ&HQW*SQ*^SSQWSGQSG',
+            client_id=Settings.CATALOG_CLIENT_ID,
+            client_secret=Settings.CATALOG_CLIENT_SECRET,
             user_id=user.id,
             redirect_uris=[],
             default_scopes=api.api_v1.authorizations['oauth2_password']['scopes']
@@ -87,5 +87,4 @@ def init():
 
     root_user, docs_user, regular_user = init_users()  # pylint: disable=unused-variable
     init_auth(docs_user)
-    init_auth(regular_user)
-    init_datasets(root_user)
+    # init_datasets(docs_user)

@@ -26,7 +26,7 @@ class License(db.Model):
             return license
 
         if license_name is not None:
-            license = cls.query.filter_by(title=license_name).first()
+            license = cls.query.filter_by(name=license_name).first()
             if license is None:
                 raise ObjectDoesNotExist('License "%s" does not exists' % license_name)
             return license
