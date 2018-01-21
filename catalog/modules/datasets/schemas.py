@@ -83,7 +83,7 @@ class LicenseSchema(ModelSchema):
         model = License
         fields = (
             License.id.key,
-            License.title.key,
+            License.name.key,
             License.web.key,
             License.type.key,
             License.created.key,

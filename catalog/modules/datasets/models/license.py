@@ -11,7 +11,7 @@ class License(db.Model):
     __tablename__ = 'license'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(64), nullable=False, unique=True)
+    name = db.Column(db.String(64), nullable=False, unique=True)
     web = db.Column(db.String(1024))
     type = db.Column(db.String(64))
     created = db.Column(db.DateTime(), default=func.now())
