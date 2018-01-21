@@ -2,6 +2,7 @@ import logging
 import uuid
 
 from sqlalchemy import func
+from sqlalchemy_utils.types import ScalarListType
 
 from catalog.exception import ObjectDoesNotExist
 from catalog.extensions import db
@@ -24,7 +25,7 @@ class Dataset(db.Model):
     description = db.Column(db.Text, nullable=False)
     homepage = db.Column(db.String(1024), nullable=False)
     version = db.Column(db.String(24))
-    keywords = db.Column(db.String(128), nullable=False)
+    keywords = db.Column(ScalarListType(separator=' '), nullable=False)
     image = db.Column(db.String(1024))
     temporal = db.Column(db.String(64))
     spatial = db.Column(db.String(64))

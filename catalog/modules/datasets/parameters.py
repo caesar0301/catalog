@@ -1,5 +1,6 @@
 # encoding: utf-8
 from flask_marshmallow import base_fields
+from marshmallow import validates
 
 from catalog.extensions.flask_restplus import PostFormParameters, PatchJSONParameters
 from catalog.modules.datasets import schemas
@@ -14,6 +15,7 @@ class AddDatasetParameters(PostFormParameters, schemas.DatasetSchema):
     license_name = base_fields.String('license_name', required=True)
     publisher_name = base_fields.String('publisher_name')
     organization_name = base_fields.String('organization_name')
+    keywords = base_fields.List(base_fields.String, required=False)
 
     class Meta(schemas.DatasetSchema.Meta):
         fields = schemas.DatasetSchema.Meta.fields + (
@@ -21,6 +23,16 @@ class AddDatasetParameters(PostFormParameters, schemas.DatasetSchema):
             'organization_name',
             'publisher_name',
         )
+
+    @validates('temporal')
+    def validate_temporal_field(self):
+        # TODO: support field validation
+        pass
+
+    @validates('spatial')
+    def validate_spatial_field(self):
+        # TODO: support field validation
+        pass
 
 
 class PatchDatasetParameters(PatchJSONParameters):
@@ -68,8 +80,8 @@ class UpdateLicenseParameters(PostFormParameters, schemas.LicenseSchema):
     """
     Update a license
     """
-    web = base_fields.String(required=False)
-    title = base_fields.String(required=False)
+    name = base_fields.String(required=False)
+    url = base_fields.String(required=False)
 
     class Meta(schemas.LicenseSchema.Meta):
         fields = schemas.LicenseSchema.Meta.fields
@@ -127,7 +139,7 @@ class UpdateReferenceParameters(PostFormParameters, schemas.ReferenceSchema):
     Update a reference
     """
     title = base_fields.String(required=False)
-    reference = base_fields.String(required=False)
+    url = base_fields.String(required=False)
 
     class Meta(schemas.ReferenceSchema.Meta):
         fields = schemas.ReferenceSchema.Meta.fields
@@ -147,8 +159,7 @@ class UpdateSourceParameters(PostFormParameters, schemas.SourceSchema):
     Update a source
     """
     title = base_fields.String(required=False)
-    access_url = base_fields.String(required=False)
-    download_url = base_fields.String(required=False)
+    url = base_fields.String(required=False)
 
     class Meta(schemas.SourceSchema.Meta):
         fields = schemas.SourceSchema.Meta.fields

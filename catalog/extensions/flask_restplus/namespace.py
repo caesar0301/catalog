@@ -414,15 +414,9 @@ class Namespace(OriginalNamespace):
             #
             # TODO: Change this behaviour when implement advanced OPTIONS
             # method support
-            if (
-                        isinstance(permission, permissions.RolePermission)
-                    or
-                        (
-                                    isinstance(permission, type)
-                                and
-                                    issubclass(permission, permissions.RolePermission)
-                        )
-            ):
+            if (isinstance(permission, permissions.RolePermission)
+                or (isinstance(permission, type)
+                    and issubclass(permission, permissions.RolePermission))):
                 protected_func._role_permission_applied = True
 
             permission_description = permission.__doc__.strip()

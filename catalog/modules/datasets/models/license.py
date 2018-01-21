@@ -12,7 +12,7 @@ class License(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False, unique=True)
-    web = db.Column(db.String(1024))
+    url = db.Column(db.String(1024))
     type = db.Column(db.String(64))
     created = db.Column(db.DateTime(), default=func.now())
     updated = db.Column(db.DateTime(), onupdate=func.now())
