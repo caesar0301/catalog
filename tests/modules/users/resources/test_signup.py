@@ -81,34 +81,34 @@ def test_new_user_creation_with_incorrect_captcha_must_fail(flask_app_client):
     assert set(response.json.keys()) >= {'status', 'message'}
 
 
-def test_new_user_creation_without_captcha_but_admin_user(
-        patch_User_password_scheme,
-        flask_app_client,
-        admin_user,
-        db
-):
-    with flask_app_client.login(admin_user):
-        user_id = create_new_user(
-            flask_app_client,
-            data={
-                'recaptcha_key': None,
-                'username': "user1",
-                'email': "user1@email.com",
-                'password': "user1_password",
-            }
-        )
-    assert isinstance(user_id, int)
-
-    # Cleanup
-    from catalog.modules.users.models import User
-
-    user1_instance = User.query.get(user_id)
-    assert user1_instance.username == "user1"
-    assert user1_instance.email == "user1@email.com"
-    assert user1_instance.password == "user1_password"
-
-    with db.session.begin():
-        db.session.delete(user1_instance)
+# def test_new_user_creation_without_captcha_but_admin_user(
+#         patch_User_password_scheme,
+#         flask_app_client,
+#         admin_user,
+#         db
+# ):
+#     with flask_app_client.login(admin_user):
+#         user_id = create_new_user(
+#             flask_app_client,
+#             data={
+#                 'recaptcha_key': None,
+#                 'username': "user1",
+#                 'email': "user1@email.com",
+#                 'password': "user1_password",
+#             }
+#         )
+#     assert isinstance(user_id, int)
+#
+#     # Cleanup
+#     from catalog.modules.users.models import User
+#
+#     user1_instance = User.query.get(user_id)
+#     assert user1_instance.username == "user1"
+#     assert user1_instance.email == "user1@email.com"
+#     assert user1_instance.password == "user1_password"
+#
+#     with db.session.begin():
+#         db.session.delete(user1_instance)
 
 
 def test_new_user_creation_duplicate_must_fail(flask_app_client, db):
