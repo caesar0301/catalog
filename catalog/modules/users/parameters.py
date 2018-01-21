@@ -29,7 +29,7 @@ class AddUserParameters(PostFormParameters, schemas.UserSchema):
         description=(
             "See `/users/signup_form` for details. It is required for everybody, except admins"
         ),
-        required=False
+        required=True
     )
 
     class Meta(schemas.UserSchema.Meta):

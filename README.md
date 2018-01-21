@@ -120,8 +120,8 @@ store user credentials to do the refresh procedure):
 $ curl 'http://127.0.0.1:4444/auth/oauth2/token?grant_type=refresh_token' --user 'catalog:' -F 'refresh_token=pzBVnebw56mGgJWnC9D6maVLYxbrwX'
 {
     "token_type": "Bearer",
-    "access_token": "pzBVnebw56mGgJWnC9D6maVLYxbrwX",
-    "refresh_token": "YD5Rc1FojKX1ZY9vltMSnFxhm9qpbb",
+    "access_token": "YD5Rc1FojKX1ZY9vltMSnFxhm9qpbb",
+    "refresh_token": "pzBVnebw56mGgJWnC9D6maVLYxbrwX",
     "expires_in": 3600,
     "scope": "auth:read auth:write users:read users:write comments:read comments:write datasets:read datasets:write stories:read stories:write"
 }
@@ -147,7 +147,10 @@ access protected resources.
 
 # Reference:
 
-* http://frictionlessdata.io
+* [FrictionlessData](http://frictionlessdata.io)
+
+* [Real-life RESTful server example on Flask-RESTplus](https://github.com/frol/flask-restplus-server-example)
+
 
 # Author
 
