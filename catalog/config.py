@@ -1,26 +1,32 @@
 import os
 
+from catalog.utils import getenv
+
 
 class BaseConfig(object):
-    SECRET_KEY = os.getenv('CLOUDSML_API_SERVER_SECRET_KEY', 'this-really-needs-to-be-changed')
+    SECRET_KEY = getenv('CLOUDSML_API_SERVER_SECRET_KEY', default='this-really-needs-to-be-changed')
 
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
     STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
     DEFAULT_DATABASE_URI = 'sqlite:///%s' % (os.path.join(PROJECT_ROOT, "catalog.db"))
-    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', DEFAULT_DATABASE_URI)
+    SQLALCHEMY_DATABASE_URI = getenv('SQLALCHEMY_DATABASE_URI', default=DEFAULT_DATABASE_URI)
 
     DEBUG = False
+    DASHBOARD_ENABLED = getenv('DASHBOARD_ENABLED', type=bool, default=True)
 
-    ENABLED_MODULES = (
+    ENABLED_MODULES = [
+        'landing',
         'auth',
         'users',
         'comments',
         'datasets',
         'stories',
-        # Keep api module as last one for module injection
-        'api'
-    )
+        'api',  # Keep api module as last one for module injection
+    ]
+
+    if DASHBOARD_ENABLED:
+        ENABLED_MODULES.append('dashboard',)
 
     AUTHORIZATIONS = {
         'oauth2_password': {

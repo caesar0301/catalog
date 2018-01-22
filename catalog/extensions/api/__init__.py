@@ -10,9 +10,7 @@ from catalog.extensions.flask_restplus import Api
 api_v1 = Api(
     version='1.0',
     title="Catalog API",
-    description=(
-        "This is a catalog service of world-wide data sources.\n"
-    ),
+    description="This is a catalog service of world-wide data sources."
 )
 
 current_api = api_v1
