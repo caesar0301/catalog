@@ -1,19 +1,16 @@
 FROM 172.16.1.99/transwarp/CATALOG_builder:tdc-1.0
 
-MAINTAINER xiaming.chen@transwarp.io
+MAINTAINER chenxm35@gmail.com
 
 ENV CATALOG_HOME=/usr/lib/catalog
 ENV CATALOG_LOG_DIR=/var/log/catalog
 ENV CATALOG_TMP=/tmp/catalog
-ENV CATALOG_WEBSERVER_PORT=5180
+ENV CATALOG_WEBSERVER_PORT=4444
 
 WORKDIR $CATALOG_TMP
 ADD . $CATALOG_TMP
 
-RUN pip install -U -i http://172.16.1.161:30033/repository/pypi/simple/ \
-    -r $CATALOG_TMP/requirements.txt \
-    --trusted-host=172.16.1.161 \
-    --timeout=120
+RUN pip install -U -r $CATALOG_TMP/requirements.txt
 
 RUN mkdir -p $CATALOG_LOG_DIR
 RUN chmod -R 777 $CATALOG_LOG_DIR
