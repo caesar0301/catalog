@@ -1,11 +1,14 @@
-FROM 172.16.1.99/transwarp/CATALOG_builder:tdc-1.0
+FROM ubuntu:16.04
 
-MAINTAINER chenxm35@gmail.com
+MAINTAINER Xiaming Chen <chenxm35@gmail.com>
 
 ENV CATALOG_HOME=/usr/lib/catalog
 ENV CATALOG_LOG_DIR=/var/log/catalog
 ENV CATALOG_TMP=/tmp/catalog
 ENV CATALOG_WEBSERVER_PORT=4444
+
+# Install dependencies
+RUN apt-get install -y libmysqlclient-dev
 
 WORKDIR $CATALOG_TMP
 ADD . $CATALOG_TMP
@@ -21,6 +24,8 @@ RUN python setup.py install
 # Install necessary files
 COPY ./docker-build/scripts/ $CATALOG_HOME/scripts/
 COPY ./migrations/ $CATALOG_HOME/migrations/
+COPY ./docs/ $CATALOG_HOME/docs/
+COPY ./tasks/ $CATALOG_HOME/tasks/
 COPY ./bin/catalog $CATALOG_HOME/scripts/
 
 # Clear temporary files
