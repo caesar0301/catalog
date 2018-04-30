@@ -8,6 +8,7 @@ ENV CATALOG_TMP=/tmp/catalog
 ENV CATALOG_WEBSERVER_PORT=4444
 
 # Install dependencies
+RUN apt-get update
 RUN apt-get install -y libmysqlclient-dev
 
 WORKDIR $CATALOG_TMP
