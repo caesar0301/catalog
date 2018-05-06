@@ -3,7 +3,7 @@ version: '2'
 services:
 
   catalog-database:
-    image: 172.16.1.99/transwarp/mysql:5.7
+    image: mysql:5.7
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'password'
@@ -13,7 +13,7 @@ services:
       - "13306:3306"
 
   catalog-server:
-    image: 172.16.1.99/gold/catalog:latest
+    image: caesar0301/catalog:latest
     privileged: true
     restart: always
     command: bash /usr/lib/catalog/scripts/bootstrap.sh
@@ -21,7 +21,7 @@ services:
       - "4444:4444"
     environment:
       - FLASK_ENV=development
-      - CATALOG_MYSQL_SERVER=catalog-db
+      - CATALOG_MYSQL_SERVER=catalog-database
       - CATALOG_MYSQL_USERNAME=root
       - CATALOG_MYSQL_PASSWORD=password
       - CATALOG_DATABASE=catalog_production
