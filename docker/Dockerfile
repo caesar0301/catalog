@@ -11,26 +11,27 @@ ENV CATALOG_WEBSERVER_PORT=4444
 RUN apt-get update
 RUN apt-get install -y libmysqlclient-dev python-pip
 
-WORKDIR $CATALOG_TMP
-ADD . $CATALOG_TMP
+WORKDIR $CATALOG_HOME
 
-RUN pip install -U -r $CATALOG_TMP/requirements.txt
-
-RUN mkdir -p $CATALOG_LOG_DIR
-RUN chmod -R 777 $CATALOG_LOG_DIR
+# Fetch latest source code
+RUN cd /tmp && rm -rf catalog \
+    && git clone http://github.com/awesomedata/catalog.git
 
 RUN cd $CATALOG_TMP
+RUN pip install -U -r requirements.txt
 RUN python setup.py install
-
-# Install necessary files
-COPY ./docker/scripts/ $CATALOG_HOME/scripts/
-COPY ./migrations/ $CATALOG_HOME/migrations/
-COPY ./docs/ $CATALOG_HOME/docs/
-COPY ./tasks/ $CATALOG_HOME/tasks/
-COPY ./bin/catalog $CATALOG_HOME/scripts/
+RUN cp -r docker/scripts $CATALOG_HOME/scripts
+RUN cp -r migrations $CATALOG_HOME/migrations
+RUN cp -r docs $CATALOG_HOME/docs
+RUN cp -r tasks $CATALOG_HOME/tasks
+RUN cp -r bin/catalog $CATALOG_HOME/scripts/
 
 # Clear temporary files
 RUN rm -rf $CATALOG_TMP
+
+# Logging file directory
+RUN mkdir -p $CATALOG_LOG_DIR
+RUN chmod -R 777 $CATALOG_LOG_DIR
 
 # Make binaries executable and add to global PATH
 RUN chmod +x $CATALOG_HOME/scripts/*
