@@ -9,7 +9,7 @@ ENV CATALOG_WEBSERVER_PORT=4444
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get install -y libmysqlclient-dev
+RUN apt-get install -y libmysqlclient-dev python-pip
 
 WORKDIR $CATALOG_TMP
 ADD . $CATALOG_TMP
@@ -23,7 +23,7 @@ RUN cd $CATALOG_TMP
 RUN python setup.py install
 
 # Install necessary files
-COPY ./docker-build/scripts/ $CATALOG_HOME/scripts/
+COPY ./docker/scripts/ $CATALOG_HOME/scripts/
 COPY ./migrations/ $CATALOG_HOME/migrations/
 COPY ./docs/ $CATALOG_HOME/docs/
 COPY ./tasks/ $CATALOG_HOME/tasks/
