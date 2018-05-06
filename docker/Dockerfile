@@ -18,7 +18,7 @@ RUN rm -rf $CATALOG_TMP \
     && git clone http://github.com/awesomedata/catalog.git $CATALOG_TMP
 
 RUN pip install -U -r $CATALOG_TMP/requirements.txt
-RUN cd $CATALOG_TMP && python setup.py install
+# RUN cd $CATALOG_TMP && python setup.py install
 RUN cp -r $CATALOG_TMP/docker/scripts $CATALOG_HOME/scripts
 RUN cp -r $CATALOG_TMP/migrations $CATALOG_HOME/migrations
 RUN cp -r $CATALOG_TMP/docs $CATALOG_HOME/docs
