@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM caesar0301/catalog_builder:latest
 
 MAINTAINER Xiaming Chen <chenxm35@gmail.com>
 
