@@ -14,17 +14,16 @@ RUN apt-get install -y libmysqlclient-dev python-pip
 WORKDIR $CATALOG_HOME
 
 # Fetch latest source code
-RUN cd /tmp && rm -rf catalog \
-    && git clone http://github.com/awesomedata/catalog.git
+RUN rm -rf $CATALOG_TMP \
+    && git clone http://github.com/awesomedata/catalog.git $CATALOG_TMP
 
-RUN cd $CATALOG_TMP
-RUN pwd && ls && pip install -U -r requirements.txt
-RUN python setup.py install
-RUN cp -r docker/scripts $CATALOG_HOME/scripts
-RUN cp -r migrations $CATALOG_HOME/migrations
-RUN cp -r docs $CATALOG_HOME/docs
-RUN cp -r tasks $CATALOG_HOME/tasks
-RUN cp -r bin/catalog $CATALOG_HOME/scripts/
+RUN pip install -U -r $CATALOG_TMP/requirements.txt
+RUN cd $CATALOG_TMP && python setup.py install
+RUN cp -r $CATALOG_TMP/docker/scripts $CATALOG_HOME/scripts
+RUN cp -r $CATALOG_TMP/migrations $CATALOG_HOME/migrations
+RUN cp -r $CATALOG_TMP/docs $CATALOG_HOME/docs
+RUN cp -r $CATALOG_TMP/tasks $CATALOG_HOME/tasks
+RUN cp -r $CATALOG_TMP/bin/catalog $CATALOG_HOME/scripts/
 
 # Clear temporary files
 RUN rm -rf $CATALOG_TMP
