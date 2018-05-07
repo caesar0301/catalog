@@ -21,6 +21,7 @@ RUN pip install -U -r $CATALOG_TMP/requirements.txt
 # RUN cd $CATALOG_TMP && python setup.py install
 RUN cp -r $CATALOG_TMP/docker/scripts $CATALOG_HOME/scripts
 RUN cp -r $CATALOG_TMP/migrations $CATALOG_HOME/migrations
+RUN cp -r $CATALOG_TMP/catalog $CATALOG_HOME/catalog
 RUN cp -r $CATALOG_TMP/docs $CATALOG_HOME/docs
 RUN cp -r $CATALOG_TMP/tasks $CATALOG_HOME/tasks
 RUN cp -r $CATALOG_TMP/bin/catalog $CATALOG_HOME/scripts/

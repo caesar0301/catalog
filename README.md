@@ -18,19 +18,10 @@ Python 3.5+
 CREATE DATABASE IF NOT EXISTS catalogdb DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 ```
 
-* List integrated commands:
+* Run development server
 
 ```bash
-invoke --list
-```
-
-* Start app with shortcut:
-
-```bash
-export CATALOG_CONFIG=development
-export SQLALCHEMY_DATABASE_URI="mysql://root:password@localhost:3306/catalogdb?charset=utf8"
-
-invoke app.run
+./devtools/run_server.sh
 ```
 
 Swagger UI: `localhost:4444/api/v1`
