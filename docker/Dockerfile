@@ -25,6 +25,9 @@ RUN cp -r $CATALOG_TMP/catalog $CATALOG_HOME/catalog
 RUN cp -r $CATALOG_TMP/docs $CATALOG_HOME/docs
 RUN cp -r $CATALOG_TMP/tasks $CATALOG_HOME/tasks
 RUN cp -r $CATALOG_TMP/bin/catalog $CATALOG_HOME/scripts/
+RUN cp -r $CATALOG_TMP/requirements.txt $CATALOG_HOME/
+RUN cp -r $CATALOG_TMP/LICENSE $CATALOG_HOME/
+RUN cp -r $CATALOG_TMP/README.md $CATALOG_HOME/
 
 # Clear temporary files
 RUN rm -rf $CATALOG_TMP
