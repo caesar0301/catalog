@@ -6,7 +6,7 @@ A data catalog service for awesome data.
 
 # Screenshots
 
-[![Screenshot](https://raw.githubusercontent.com/awesomedata/catalog/master/docs/screenshots/swagger-api.png)](https://github.com/awesomedata/catalog)
+[![Screenshot](https://github.com/caesar0301/catalog/blob/master/docs/screenshots/swagger-api.png)](https://github.com/caesar0301/catalog)
 
 # Run
 
